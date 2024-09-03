@@ -67,6 +67,12 @@
 
       const html = htm.bind(h)
 
+      function decodeHtmlEntities(str) {
+        const textarea = document.createElement('textarea')
+        textarea.innerHTML = str
+        return textarea.value
+      }
+
       class ProfileViewer extends Component {
         constructor() {
           super()
@@ -104,8 +110,8 @@
               ></div>
               <img class="profile-avatar" src=${profile.avatar} alt="Avatar" />
               <div class="profile-info">
-                <h1>${profile.display_name}</h1>
-                <p>${profile.note}</p>
+                <h1>${decodeHtmlEntities(profile.display_name)}</h1>
+                <p>${decodeHtmlEntities(profile.note)}</p>
                 <p><strong>Followers:</strong> ${profile.followers_count}</p>
                 <p><strong>Following:</strong> ${profile.following_count}</p>
                 <p><a href="${profile.website}" target="_blank">Website</a></p>
